@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messagerie Complète</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Page de connexion/inscription -->
+        <div id="auth-page" class="page active">
+            <div class="auth-container">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" onclick="showTab('login')">Connexion</button>
+                    <button class="tab-btn" onclick="showTab('register')">Inscription</button>
+                </div>
+                
+                <!-- Formulaire de connexion -->
+                <form id="login-form" class="auth-form active">
+                    <h2>Connexion</h2>
+                    <div class="form-group">
+                        <label for="login-email">Email</label>
+                        <input type="email" id="login-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Mot de passe</label>
+                        <input type="password" id="login-password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">Se connecter</button>
+                </form>
+                
+                <!-- Formulaire d'inscription -->
+                <form id="register-form" class="auth-form">
+                    <h2>Inscription</h2>
+                    <div class="form-group">
+                        <label for="register-nom">Nom</label>
+                        <input type="text" id="register-nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-prenom">Prénom</label>
+                        <input type="text" id="register-prenom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Mot de passe</label>
+                        <input type="password" id="register-password" required>
+                    </div>
+                    <button type="submit" class="auth-btn">S'inscrire</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Page principale de messagerie -->
+        <div id="chat-page" class="page">
+            <div class="chat-container">
+                <!-- Sidebar gauche -->
+                <div class="sidebar">
+                    <div class="user-profile">
+                        <div class="avatar" id="user-avatar">U</div>
+                        <div class="user-info">
+                            <h3 id="user-name">Utilisateur</h3>
+                            <span id="user-email">email@example.com</span>
+                        </div>
+                        <button class="logout-btn" onclick="logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-users" placeholder="Rechercher par nom...">
+                    </div>
+                    
+                    <div class="tabs">
+                        <button class="tab-btn active" onclick="switchTab('discussions')">
+                            <i class="fas fa-comments"></i> Discussions
+                        </button>
+                        <button class="tab-btn" onclick="switchTab('groups')">
+                            <i class="fas fa-users"></i> Groupes
+                        </button>
+                        <button class="tab-btn" onclick="switchTab('contacts')">
+                            <i class="fas fa-address-book"></i> Contacts
+                        </button>
+                    </div>
+                    
+                    <div class="create-group" id="create-group-section">
+                        <button class="create-group-btn" onclick="showCreateGroup()">
+                            <i class="fas fa-plus"></i> Créer un groupe
+                        </button>
+                    </div>
+                    
+                    <div id="contacts-list" class="contacts-list active">
+                        <!-- Les contacts seront chargés ici -->
+                    </div>
+                    
+                    <div id="groups-list" class="groups-list">
+                        <!-- Les groupes seront chargés ici -->
+                    </div>
+                    
+                    <div id="discussions-list" class="discussions-list">
+                        <!-- Les discussions seront chargées ici -->
+                    </div>
+                </div>
+                
+                <!-- Zone de chat principale -->
+                <div class="chat-area">
+                    <div class="chat-header" id="chat-header">
+                        <div class="chat-user-info">
+                            <div class="avatar" id="chat-avatar">G</div>
+                            <div>
+                                <h3 id="chat-name">Sélectionnez une conversation</h3>
+                                <span id="chat-status">En ligne</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="messages-container" id="messages-container">
+                        <!-- Les messages seront chargés ici -->
+                    </div>
+                    
+                    <div class="message-input-container" id="message-input-container">
+                        <button class="attach-btn" onclick="openFileDialog()">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <input type="file" id="file-input" style="display: none;" multiple onchange="handleFileSelect()">
+                        
+                        <button class="audio-btn" onclick="toggleAudioRecording()" id="audio-btn">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        
+                        <div class="audio-recording" id="audio-recording" style="display: none;">
+                            <span class="recording-timer" id="recording-timer">00:00</span>
+                            <button class="stop-recording" onclick="stopAudioRecording()">
+                                <i class="fas fa-stop"></i>
+                            </button>
+                        </div>
+                        
+                        <textarea id="message-input" placeholder="Écrivez votre message..." rows="1"></textarea>
+                        
+                        <button class="send-btn" onclick="sendMessage()">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal de création de groupe -->
+        <div id="group-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Créer un nouveau groupe</h3>
+                    <button class="close-btn" onclick="closeModal('group-modal')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="group-name">Nom du groupe</label>
+                        <input type="text" id="group-name" placeholder="Nom du groupe">
+                    </div>
+                    <div class="form-group">
+                        <label>Sélectionner les membres</label>
+                        <div id="group-members-list" class="members-list">
+                            <!-- Les contacts seront chargés ici -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-btn" onclick="closeModal('group-modal')">Annuler</button>
+                    <button class="create-btn" onclick="createGroup()">Créer</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal des fichiers joints -->
+        <div id="files-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Fichiers joints</h3>
+                    <button class="close-btn" onclick="closeModal('files-modal')">&times;</button>
+                </div>
+                <div class="modal-body" id="files-preview">
+                    <!-- Aperçu des fichiers -->
+                </div>
+                <div class="modal-footer">
+                    <button class="cancel-btn" onclick="closeModal('files-modal')">Annuler</button>
+                    <button class="send-btn" onclick="sendFiles()">Envoyer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>
