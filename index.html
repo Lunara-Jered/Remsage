@@ -2,199 +2,609 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messagerie Complète</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Académie des Formateurs & Consultants du Gabon</title>
+    <!-- Font Awesome 6 (icônes vectorielles, pas d'emoji) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: #1e2f4a;
+            line-height: 1.5;
+        }
+
+        /* couleurs : bleu profond, gris doux, accents bleu clair */
+        :root {
+            --primary-dark: #0b2b40;
+            --primary: #1a4972;
+            --primary-light: #2b6c9e;
+            --accent: #3b8fc2;
+            --gray-100: #f0f4f8;
+            --gray-200: #d9e2ec;
+            --gray-600: #4b5e71;
+            --white: #ffffff;
+            --shadow-sm: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.02);
+        }
+
+        /* layout mobile first */
+        .container {
+            width: 100%;
+            padding: 0 1.25rem;
+            margin: 0 auto;
+        }
+
+        /* header avec image de fond (abstrait) */
+        .hero {
+            background: linear-gradient(145deg, var(--primary-dark) 0%, #143e5c 100%);
+            color: white;
+            padding: 2.5rem 1.5rem 3rem 1.5rem;
+            border-bottom-left-radius: 2rem;
+            border-bottom-right-radius: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .hero-logo i {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 0.75rem;
+        }
+
+        .hero .subhead {
+            font-size: 1rem;
+            opacity: 0.9;
+            background: rgba(255,255,255,0.12);
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+            backdrop-filter: blur(4px);
+            margin-top: 0.5rem;
+        }
+
+        /* bannière publicitaire */
+        .ad-bar {
+            background-color: var(--gray-200);
+            color: var(--primary-dark);
+            padding: 0.7rem 0;
+            font-size: 0.85rem;
+            font-weight: 600;
+            white-space: nowrap;
+            overflow: hidden;
+            border-bottom: 1px solid #cbd6e4;
+        }
+
+        .ad-bar span {
+            display: inline-block;
+            animation: scrollAds 22s linear infinite;
+            padding-left: 100%;
+        }
+
+        @keyframes scrollAds {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* navigation sticky compacte */
+        .navbar {
+            background-color: var(--white);
+            padding: 0.5rem 1.25rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--gray-200);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.25rem 0;
+            border-bottom: 2px solid transparent;
+            transition: 0.2s;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: var(--accent);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .social-icons a {
+            color: var(--primary-light);
+            font-size: 1.3rem;
+        }
+
+        /* sections générales */
+        section {
+            margin: 2.5rem 0;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--accent);
+            font-size: 1.8rem;
+        }
+
+        /* carte président */
+        .president-card {
+            background: linear-gradient(135deg, #eef3fa 0%, #dde7f2 100%);
+            padding: 1.8rem;
+            border-radius: 2rem;
+            box-shadow: var(--shadow-sm);
+            border-left: 4px solid var(--accent);
+        }
+
+        .president-name {
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* grille rubriques */
+        .rubriques-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+            transition: all 0.15s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .card h3 i {
+            color: var(--accent);
+            width: 1.8rem;
+            font-size: 1.6rem;
+        }
+
+        .card p, .card li {
+            color: var(--gray-600);
+            font-size: 0.95rem;
+        }
+
+        .card ul {
+            list-style: none;
+        }
+
+        .card li {
+            margin-bottom: 0.6rem;
+            display: flex;
+            gap: 0.75rem;
+            align-items: baseline;
+        }
+
+        .card li i {
+            color: var(--primary-light);
+            width: 1.3rem;
+            font-size: 1rem;
+            margin-top: 0.2rem;
+        }
+
+        .badge {
+            background-color: var(--gray-200);
+            color: var(--primary-dark);
+            padding: 0.25rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 3rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+            text-decoration: none;
+            transition: 0.15s;
+        }
+
+        .btn i {
+            font-size: 1rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* contact compact */
+        .contact-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 3rem;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--gray-200);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            color: var(--primary-dark);
+            font-weight: 500;
+        }
+
+        .contact-item i {
+            color: var(--accent);
+            font-size: 1.3rem;
+            width: 1.5rem;
+        }
+
+        .newsletter-box {
+            background: var(--white);
+            border-radius: 3rem;
+            padding: 0.3rem;
+            display: flex;
+            border: 1px solid var(--gray-200);
+            margin: 1rem 0;
+        }
+
+        .newsletter-box input {
+            flex: 1;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            border-radius: 3rem;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        .newsletter-box button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 3rem;
+            padding: 0.7rem 1.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .social-footer {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin: 2rem 0 1.5rem;
+        }
+
+        .social-footer a {
+            color: var(--primary);
+            font-size: 2rem;
+            opacity: 0.8;
+            transition: 0.1s;
+        }
+
+        .social-footer a:hover {
+            opacity: 1;
+        }
+
+        /* footer */
+        .footer {
+            background: var(--primary-dark);
+            color: #dfeaf2;
+            padding: 2rem 1.5rem 1.5rem;
+            border-top-left-radius: 2.5rem;
+            border-top-right-radius: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .footer a {
+            color: #aac9e4;
+            text-decoration: none;
+        }
+
+        .footer hr {
+            border: 0.5px solid #305d7a;
+            margin: 1.2rem 0;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25D366;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+            z-index: 99;
+        }
+
+        /* mq pour très petits écrans */
+        @media (max-width: 380px) {
+            .nav-links { gap: 0.6rem; font-size: 0.8rem; }
+            .hero h1 { font-size: 1.6rem; }
+        }
+    </style>
 </head>
 <body>
-    <div id="app">
-        <!-- Page de connexion/inscription -->
-        <div id="auth-page" class="page active">
-            <div class="auth-container">
-                <div class="auth-tabs">
-                    <button class="tab-btn active" onclick="showTab('login')">Connexion</button>
-                    <button class="tab-btn" onclick="showTab('register')">Inscription</button>
-                </div>
-                
-                <!-- Formulaire de connexion -->
-                <form id="login-form" class="auth-form active">
-                    <h2>Connexion</h2>
-                    <div class="form-group">
-                        <label for="login-email">Email</label>
-                        <input type="email" id="login-email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="login-password">Mot de passe</label>
-                        <input type="password" id="login-password" required>
-                    </div>
-                    <button type="submit" class="auth-btn">Se connecter</button>
-                </form>
-                
-                <!-- Formulaire d'inscription -->
-                <form id="register-form" class="auth-form">
-                    <h2>Inscription</h2>
-                    <div class="form-group">
-                        <label for="register-nom">Nom</label>
-                        <input type="text" id="register-nom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-prenom">Prénom</label>
-                        <input type="text" id="register-prenom" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-email">Email</label>
-                        <input type="email" id="register-email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="register-password">Mot de passe</label>
-                        <input type="password" id="register-password" required>
-                    </div>
-                    <button type="submit" class="auth-btn">S'inscrire</button>
-                </form>
-            </div>
+
+    <!-- barre publicitaire (icône mégaphone) -->
+    <div class="ad-bar">
+        <span><i class="fas fa-bullhorn" style="margin-right: 1rem;"></i> ESPACE PUBLICITÉS – BANDE PASSANTE DYNAMIQUE : Réservez votre espace ! Éducation – Digital – Culture gabonaise – Formations <i class="fas fa-arrow-right" style="margin:0 1rem;"></i> </span>
+    </div>
+
+    <!-- HERO avec icônes -->
+    <div class="hero">
+        <div class="hero-logo">
+            <i class="fas fa-chalkboard-teacher"></i>
+            <span style="font-size: 1.1rem; font-weight: 400;">AFCG</span>
         </div>
-        
-        <!-- Page principale de messagerie -->
-        <div id="chat-page" class="page">
-            <div class="chat-container">
-                <!-- Sidebar gauche -->
-                <div class="sidebar">
-                    <div class="user-profile">
-                        <div class="avatar" id="user-avatar">U</div>
-                        <div class="user-info">
-                            <h3 id="user-name">Utilisateur</h3>
-                            <span id="user-email">email@example.com</span>
-                        </div>
-                        <button class="logout-btn" onclick="logout()">
-                            <i class="fas fa-sign-out-alt"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="search-users" placeholder="Rechercher par nom...">
-                    </div>
-                    
-                    <div class="tabs">
-                        <button class="tab-btn active" onclick="switchTab('discussions')">
-                            <i class="fas fa-comments"></i> Discussions
-                        </button>
-                        <button class="tab-btn" onclick="switchTab('groups')">
-                            <i class="fas fa-users"></i> Groupes
-                        </button>
-                        <button class="tab-btn" onclick="switchTab('contacts')">
-                            <i class="fas fa-address-book"></i> Contacts
-                        </button>
-                    </div>
-                    
-                    <div class="create-group" id="create-group-section">
-                        <button class="create-group-btn" onclick="showCreateGroup()">
-                            <i class="fas fa-plus"></i> Créer un groupe
-                        </button>
-                    </div>
-                    
-                    <div id="contacts-list" class="contacts-list active">
-                        <!-- Les contacts seront chargés ici -->
-                    </div>
-                    
-                    <div id="groups-list" class="groups-list">
-                        <!-- Les groupes seront chargés ici -->
-                    </div>
-                    
-                    <div id="discussions-list" class="discussions-list">
-                        <!-- Les discussions seront chargées ici -->
-                    </div>
-                </div>
-                
-                <!-- Zone de chat principale -->
-                <div class="chat-area">
-                    <div class="chat-header" id="chat-header">
-                        <div class="chat-user-info">
-                            <div class="avatar" id="chat-avatar">G</div>
-                            <div>
-                                <h3 id="chat-name">Sélectionnez une conversation</h3>
-                                <span id="chat-status">En ligne</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="messages-container" id="messages-container">
-                        <!-- Les messages seront chargés ici -->
-                    </div>
-                    
-                    <div class="message-input-container" id="message-input-container">
-                        <button class="attach-btn" onclick="openFileDialog()">
-                            <i class="fas fa-paperclip"></i>
-                        </button>
-                        <input type="file" id="file-input" style="display: none;" multiple onchange="handleFileSelect()">
-                        
-                        <button class="audio-btn" onclick="toggleAudioRecording()" id="audio-btn">
-                            <i class="fas fa-microphone"></i>
-                        </button>
-                        
-                        <div class="audio-recording" id="audio-recording" style="display: none;">
-                            <span class="recording-timer" id="recording-timer">00:00</span>
-                            <button class="stop-recording" onclick="stopAudioRecording()">
-                                <i class="fas fa-stop"></i>
-                            </button>
-                        </div>
-                        
-                        <textarea id="message-input" placeholder="Écrivez votre message..." rows="1"></textarea>
-                        
-                        <button class="send-btn" onclick="sendMessage()">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Modal de création de groupe -->
-        <div id="group-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Créer un nouveau groupe</h3>
-                    <button class="close-btn" onclick="closeModal('group-modal')">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="group-name">Nom du groupe</label>
-                        <input type="text" id="group-name" placeholder="Nom du groupe">
-                    </div>
-                    <div class="form-group">
-                        <label>Sélectionner les membres</label>
-                        <div id="group-members-list" class="members-list">
-                            <!-- Les contacts seront chargés ici -->
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="cancel-btn" onclick="closeModal('group-modal')">Annuler</button>
-                    <button class="create-btn" onclick="createGroup()">Créer</button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Modal des fichiers joints -->
-        <div id="files-modal" class="modal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Fichiers joints</h3>
-                    <button class="close-btn" onclick="closeModal('files-modal')">&times;</button>
-                </div>
-                <div class="modal-body" id="files-preview">
-                    <!-- Aperçu des fichiers -->
-                </div>
-                <div class="modal-footer">
-                    <button class="cancel-btn" onclick="closeModal('files-modal')">Annuler</button>
-                    <button class="send-btn" onclick="sendFiles()">Envoyer</button>
-                </div>
-            </div>
+        <h1>Académie des Formateurs & Consultants du Gabon</h1>
+        <div class="subhead"><i class="fas fa-quote-right" style="margin-right: 0.4rem;"></i> L'éducation, fer de lance de tout développement</div>
+        <div style="display: flex; gap: 0.8rem; margin-top: 1.8rem; flex-wrap: wrap;">
+            <span class="badge"><i class="far fa-building"></i> Collège/Lycée</span>
+            <span class="badge"><i class="fas fa-university"></i> Université</span>
+            <span class="badge"><i class="fas fa-briefcase"></i> Entrepreneurs</span>
+            <span class="badge"><i class="fas fa-globe"></i> Digital</span>
         </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="app.js"></script>
+
+    <!-- Navigation sticky avec icônes -->
+    <div class="navbar">
+        <div class="nav-links">
+            <a href="#mot-president"><i class="fas fa-microphone"></i></a>
+            <a href="#offres"><i class="fas fa-book-open"></i></a>
+            <a href="#contact"><i class="fas fa-envelope"></i></a>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/profile.php?id=61585367231464" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+    </div>
+
+    <main class="container">
+
+        <!-- Mot du président -->
+        <section id="mot-president">
+            <div class="section-title">
+                <i class="fas fa-user-tie"></i>
+                <span>Mot du Président</span>
+            </div>
+            <div class="president-card">
+                <p style="font-size: 1rem;"><i class="fas fa-quote-left" style="color: var(--accent); margin-right: 0.4rem;"></i> Mesdames, Messieurs, chers apprenants, collègues, partenaires,</p>
+                <p style="margin: 0.8rem 0;">C’est avec une immense joie que nous vous accueillons sur cette plateforme destinée à apporter de la valeur ajoutée sur les plans scolaire, académique et entrepreneurial dans notre pays avec un esprit patriotique. Nous croyons que la jeunesse est le fer de lance de tout développement et un levier stratégique de la mutation de notre nation vers une croissance économique durable. Œuvrons ensemble avec confiance, les yeux rivés vers un avenir meilleur.</p>
+                <div class="president-name">
+                    <i class="fas fa-signature"></i> Martial MASSALA
+                </div>
+            </div>
+        </section>
+
+        <!-- Rubriques (toutes avec icônes) -->
+        <section id="qui-sommes-nous">
+            <div class="section-title">
+                <i class="fas fa-users"></i>
+                <span>Qui sommes-nous ?</span>
+            </div>
+            <div class="card">
+                <p><i class="fas fa-people-arrows" style="margin-right: 0.8rem; color: var(--accent);"></i> Nous sommes un pool de formateurs des systèmes gabonais, français et anglophone, mais aussi des consultants de domaines variés. Notre objectif : faire atteindre à notre nation des sommets inexplorés à travers nos savoir‑faire.</p>
+            </div>
+        </section>
+
+        <!-- Nos offres (grille verticale) -->
+        <section id="offres">
+            <div class="section-title">
+                <i class="fas fa-bars"></i>
+                <span>Nos offres de services</span>
+            </div>
+            <div class="rubriques-grid">
+                <div class="card">
+                    <h3><i class="fas fa-school"></i> Enseignements & Soutien</h3>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Collège/Lycée (Gabon, France, anglophone)</li>
+                        <li><i class="fas fa-check"></i> Soutien scolaire et préparation examens</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-graduation-cap"></i> Supérieur & Recherche</h3>
+                    <ul>
+                        <li><i class="fas fa-file-alt"></i> Encadrement mémoire / rapport de stage</li>
+                        <li><i class="fas fa-comments"></i> Préparation soutenance</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-chart-line"></i> Entrepreneuriat & Conseil</h3>
+                    <ul>
+                        <li><i class="fas fa-lightbulb"></i> Coaching et accompagnement entrepreneurial</li>
+                        <li><i class="fas fa-robot"></i> Digitalisation des processus de gestion</li>
+                        <li><i class="fas fa-megaphone"></i> Marketing / communication, projets structurants</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-drum"></i> Culture gabonaise</h3>
+                    <ul><li><i class="fas fa-mask"></i> Promotion et valorisation de la culture</li></ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bibliothèque + Rejoindre + Soutenir en cartes compactes -->
+        <section style="display: flex; flex-direction: column; gap: 1.2rem;">
+            <div class="card" id="bibliotheque">
+                <h3><i class="fas fa-book"></i> Bibliothèque Virtuelle</h3>
+                <p>Accédez à des ressources numériques, mémoires, ouvrages. Espace enrichi en continu.</p>
+                <div class="btn"><i class="fas fa-arrow-right"></i> Explorer</div>
+            </div>
+            <div class="card" id="rejoindre">
+                <h3><i class="fas fa-user-plus"></i> Nous rejoindre (formateur)</h3>
+                <p><i class="fas fa-envelope-open-text"></i> Envoyez CV & lettre : recrutement@afc-gabon.education</p>
+            </div>
+            <div class="card" id="soutenir">
+                <h3><i class="fas fa-hand-holding-heart"></i> Soutenir nos actions</h3>
+                <p>Devenez mécène, partenaire ou bénévole. Contactez-nous !</p>
+                <a href="#" class="btn btn-outline"><i class="fas fa-heart"></i> Je soutiens</a>
+            </div>
+        </section>
+
+        <!-- Contact / Newsletter / WhatsApp -->
+        <section id="contact">
+            <div class="section-title">
+                <i class="fas fa-address-card"></i>
+                <span>Nous contacter</span>
+            </div>
+
+            <div class="contact-row">
+                <div class="contact-item"><i class="fab fa-whatsapp"></i> +241 066 183 272</div>
+                <div class="contact-item"><i class="fas fa-phone-alt"></i> +241 066 183 272</div>
+            </div>
+
+            <div class="contact-item" style="margin: 1rem 0;"><i class="fas fa-envelope"></i> Email : contact@afc-gabon.education</div>
+
+            <!-- Newsletter -->
+            <div class="newsletter-box">
+                <input type="email" placeholder="Votre email (newsletter)" id="newsEmail">
+                <button id="subscribeBtn"><i class="fas fa-paper-plane"></i></button>
+            </div>
+
+            <!-- liens sociaux plus visibles -->
+            <div class="social-footer">
+                <a href="https://www.facebook.com/profile.php?id=61585367231464" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+
+            <p style="text-align: center; color: var(--gray-600);"><i class="fas fa-globe"></i> Académie des Formateurs et Consultants du Gabon</p>
+        </section>
+    </main>
+
+    <!-- Pied de page -->
+    <footer class="footer">
+        <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+                <span style="font-weight: 600;"><i class="fas fa-arrow-right" style="color: var(--accent);"></i> AFCG</span>
+                <span>© 2026 – Tous droits réservés</span>
+            </div>
+            <hr>
+            <div style="display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between;">
+                <div>
+                    <i class="fas fa-map-pin"></i> Libreville, Gabon<br>
+                    <i class="fas fa-at"></i> contact@afc-gabon.education
+                </div>
+                <div>
+                    <a href="#mot-president">Mot du Président</a> • <a href="#offres">Offres</a><br>
+                    <a href="#rejoindre">Devenir formateur</a> • <a href="#soutenir">Soutenir</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp float -->
+    <a href="https://wa.me/241066183272" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- Petit script pour la newsletter -->
+    <script>
+        (function() {
+            const btn = document.getElementById('subscribeBtn');
+            const input = document.getElementById('newsEmail');
+            if (btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const email = input.value.trim();
+                    if (email.includes('@') && email.includes('.')) {
+                        alert('✅ Inscription simulée : vous recevrez notre newsletter (démonstration).');
+                        input.value = '';
+                    } else {
+                        alert('📧 Adresse email invalide. Exemple : prenom@domaine.ga');
+                    }
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
