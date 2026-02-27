@@ -75,9 +75,10 @@
             font-weight: 600;
         }
 
-        .hero-logo i {
-            font-size: 2rem;
-            color: var(--accent);
+        .hero-logo img {
+            height: 40px;           /* Ajustez la hauteur selon votre logo */
+            width: auto;             /* Maintient les proportions */
+            display: block;
         }
 
         .hero h1 {
@@ -424,10 +425,11 @@
         <span><i class="fas fa-bullhorn" style="margin-right: 1rem;"></i> ESPACE PUBLICITÉS – BANDE PASSANTE DYNAMIQUE : Réservez votre espace ! Éducation – Digital – Culture gabonaise – Formations <i class="fas fa-arrow-right" style="margin:0 1rem;"></i> </span>
     </div>
 
-    <!-- HERO avec icônes -->
+    <!-- HERO avec logo (logo.png) -->
     <div class="hero">
         <div class="hero-logo">
-            <i class="fas fa-chalkboard-teacher"></i>
+            <!-- Logo image ajouté -->
+            <img src="logo.png" alt="Académie des Formateurs & Consultants du Gabon">
             <span style="font-size: 1.1rem; font-weight: 400;">AFCG</span>
         </div>
         <h1>Académie des Formateurs & Consultants du Gabon</h1>
@@ -492,7 +494,7 @@
                 <div class="card">
                     <h3><i class="fas fa-school"></i> Enseignements & Soutien</h3>
                     <ul>
-                        <li><i class="fas fa-check"></i> Collège/Lycée (Gabon, France, anglophone)</li>
+                        <li><i class="fas fa-check"></i> Collège/Lycée (Système gabonais, français, anglophone)</li>
                         <li><i class="fas fa-check"></i> Soutien scolaire et préparation examens</li>
                     </ul>
                 </div>
@@ -527,7 +529,7 @@
             </div>
             <div class="card" id="rejoindre">
                 <h3><i class="fas fa-user-plus"></i> Nous rejoindre (formateur)</h3>
-                <p><i class="fas fa-envelope-open-text"></i> Envoyez CV & lettre : recrutement@afc-gabon.education</p>
+                <p><i class="fas fa-envelope-open-text"></i> Envoyez CV & lettre : massala.martial@gmail.com</p>
             </div>
             <div class="card" id="soutenir">
                 <h3><i class="fas fa-hand-holding-heart"></i> Soutenir nos actions</h3>
@@ -550,11 +552,11 @@
 
             <div class="contact-item" style="margin: 1rem 0;"><i class="fas fa-envelope"></i> Email : contact@afc-gabon.education</div>
 
-            <!-- Newsletter -->
+            <!-- Newsletter 
             <div class="newsletter-box">
                 <input type="email" placeholder="Votre email (newsletter)" id="newsEmail">
                 <button id="subscribeBtn"><i class="fas fa-paper-plane"></i></button>
-            </div>
+            </div>-->
 
             <!-- liens sociaux plus visibles -->
             <div class="social-footer">
